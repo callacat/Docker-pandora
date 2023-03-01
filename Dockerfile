@@ -11,7 +11,6 @@ RUN apk update \
     && apk add --no-cache tzdata \
     && pip install --upgrade pip \
     && pip install . \
-    && ls /usr/share/zoneinfo \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
 
