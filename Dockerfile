@@ -5,7 +5,7 @@ ENV LANG C.UTF-8 \
 
 WORKDIR /app
 
-ADD pandora /aqq
+ADD pandora /app
 
 RUN pip install --upgrade pip \
     && pip install . \
