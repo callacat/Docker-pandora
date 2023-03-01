@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 
-ENV LANG C.UTF-8 \
-    TZ 'Asia/Shanghai'
+ENV LANG C.UTF-8
+ENV TZ 'Asia/Shanghai'
 
 WORKDIR /app
 
@@ -12,4 +12,4 @@ RUN apk update && apk add --no-cache tzdata \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone
 
-ENTRYPOINT ["pandora", "-s"]
+ENTRYPOINT ["pandora"]
