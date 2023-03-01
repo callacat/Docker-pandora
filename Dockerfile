@@ -14,4 +14,4 @@ RUN apk update \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
 
-ENTRYPOINT ["pandora", "-s"]
+ENTRYPOINT ["python3", "pandora", "-s"]
