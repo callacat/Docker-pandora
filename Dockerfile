@@ -10,7 +10,7 @@ ADD pandora /app
 RUN apk update && apk add tzdata \
     && pip install --upgrade pip \
     && pip install . \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime
+    && cp /usr/share/zoneinfo-alpine/$TZ /etc/localtime
 
 VOLUME /app
 
