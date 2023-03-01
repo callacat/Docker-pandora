@@ -5,10 +5,11 @@ ENV LANG C.UTF-8 \
 
 WORKDIR /app
 
-ADD ./pandora .
+ADD pandora /aqq
 
-RUN pip install . \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime
+RUN pip install --upgrade pip \
+    && pip install . \
+    && cp /usr/share/zoneinfo-alpine/$TZ /etc/localtime
 
 VOLUME /app
 
