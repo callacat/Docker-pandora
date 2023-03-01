@@ -54,7 +54,7 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/pandora
-          ${{ secrets.DOCKER_USERNAME }}/pandora:
+          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.date.outputs.date }}
 
   del_runs:
     runs-on: ubuntu-latest
