@@ -5,13 +5,13 @@ ENV LANG C.UTF-8 \
 
 WORKDIR /app
 
-ADD pandora /app
+COPY pandora /app
 
-RUN apk update && apk add tzdata \
+RUN apk update \
+    && apk add --no-cache tzdata \
     && pip install --upgrade pip \
     && pip install . \
-    && cp /usr/share/zoneinfo-alpine/$TZ /etc/localtime
-
-VOLUME /app
+    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone
 
 ENTRYPOINT ["pandora", "-s"]
