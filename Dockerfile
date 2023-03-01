@@ -5,7 +5,7 @@ ENV LANG C.UTF-8 \
 
 WORKDIR /app
 
-COPY pandora /app
+COPY pandora .
 
 RUN apk update \
     && apk add --no-cache tzdata \
@@ -14,4 +14,4 @@ RUN apk update \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
 
-ENTRYPOINT ["python3", "pandora", "-s"]
+ENTRYPOINT ["pandora", "-s"]
