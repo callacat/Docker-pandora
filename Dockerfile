@@ -11,4 +11,4 @@ RUN pip install .
 
 VOLUME /app
 
-ENTRYPOINT ["pandora", "-ts", "/app/token.txt"]
+ENTRYPOINT ["pandora", "-s"]
