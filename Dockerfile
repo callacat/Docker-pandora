@@ -11,7 +11,8 @@ RUN apk update \
     && apk add --no-cache tzdata \
     && pip install --upgrade pip \
     && pip install . \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone
+    && ls /usr/share/zoneinfo \
+    && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
 
 ENTRYPOINT ["pandora", "-s"]
