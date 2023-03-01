@@ -7,7 +7,8 @@ WORKDIR /app
 
 ADD ./pandora .
 
-RUN pip install .
+RUN pip install . \
+    && cp /usr/share/zoneinfo/$TZ /etc/localtime
 
 VOLUME /app
 
