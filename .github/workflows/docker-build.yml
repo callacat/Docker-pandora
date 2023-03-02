@@ -31,7 +31,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         event-type: auto-remove
-        token: ${{ secrets.ACCESS_TOKEN }}
+        token: ${{ secrets.PAT }}
         repository: callacat/Docker-pandora
 
     - name: Login to Docker Hub

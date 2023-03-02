@@ -2,7 +2,7 @@ name: Monitor Other Repository
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 每5小时执行一次
+    - cron: '10 3 * * *'   # 每5小时执行一次
 
 jobs:
   monitor:
@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Check if other repository has new commits
       run: |
-        latest_sha=$(curl -H "Authorization: token ${{ secrets.ACCESS_TOKEN }}" \
+        latest_sha=$(curl -H "Authorization: token ${{ secrets.PAT }}" \
                       https://api.github.com/repos/pengzhile/pandora/commits/master \
                       | grep '"sha"' | head -n 1 | cut -d '"' -f 4)
 
