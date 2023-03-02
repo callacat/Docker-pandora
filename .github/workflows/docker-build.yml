@@ -48,7 +48,7 @@ jobs:
     - name: Get version
       id: version
       run: |
-        apt-get install jq -y
+        sudo apt-get update && sudo apt-get install jq -y
         echo "latest_tag=$(curl --silent "https://api.github.com/repos/pengzhile/pandora/releases/latest" | jq -r .tag_name)" >> GITHUB_OUTPUT
         echo $latest_tag
 
