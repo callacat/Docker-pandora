@@ -16,6 +16,9 @@ jobs:
     steps:
 
     - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        fetch-depth: 0 
 
     - name: Check if other repository has new commits
       run: |
@@ -45,6 +48,7 @@ jobs:
     - name: Commit changes
       run: |
         git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add last_sha.txt
         git commit -m "Update last_sha.txt"
 
@@ -52,4 +56,4 @@ jobs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         branch: main
-        github_token: ${{ secrets.PAT }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
