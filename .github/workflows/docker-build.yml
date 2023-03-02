@@ -48,7 +48,8 @@ jobs:
     - name: Get version
       id: version
       run: |
-        echo "latest_tag=$(curl -H "Authorization: token ${{ secrets.GTIHUB_TOKEN }}" https://api.github.com/repos/pengzhile/pandora/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)" >> GITHUB_OUTPUT
+        LATEST_TAG=$(curl -sSL "https://github.com/pengzhile/pandora/releases/latest" | cut -d'/' -f8)
+        echo "latest_tag=$LATEST_TAG" >> $GITHUB_ENV
         echo $latest_tag
 
     - name: 获取最新仓库文件
@@ -57,7 +58,7 @@ jobs:
         git clone https://github.com/pengzhile/pandora.git
 
     - name: Build and push
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v4
       with:
         context: .
         file: ./Dockerfile
