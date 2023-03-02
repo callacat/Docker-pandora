@@ -48,9 +48,7 @@ jobs:
     - name: Get version
       id: version
       run: |
-        sudo apt-get update && sudo apt-get install jq -y
-        echo "latest_tag=$(curl -H "Authorization: token ${{ secrets.GTIHUB_TOKEN }}" \
-        --silent "https://api.github.com/repos/pengzhile/pandora/releases/latest" | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)" >> GITHUB_OUTPUT
+        echo "latest_tag=$(curl -H "Authorization: token ${{ secrets.GTIHUB_TOKEN }}" https://api.github.com/repos/pengzhile/pandora/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4)" >> GITHUB_OUTPUT
         echo $latest_tag
 
     - name: 获取最新仓库文件
