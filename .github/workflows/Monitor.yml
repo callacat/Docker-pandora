@@ -5,7 +5,7 @@ on:
     paths:
       - '.github/workflows/Monitor.yml'
   schedule:
-    - cron: '12 */3 * * *'   # 每5小时执行一次
+    - cron: '12 */5 * * *'   # 每5小时执行一次
 
 jobs:
   monitor:
@@ -20,7 +20,7 @@ jobs:
         if [[ $latest_sha != ${{ secrets.last_sha }} ]]; then
           echo "New commit detected in other repository!"
           # Update the last SHA with the latest SHA
-          echo "${latest_sha}" >> $GITHUB_ENV
+          echo "${latest_sha}"
           echo "::add-mask::$latest_sha"
           # Trigger the workflow
           curl -X POST -H "Accept: application/vnd.github.v3+json" \
