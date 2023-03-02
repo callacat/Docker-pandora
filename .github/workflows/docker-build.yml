@@ -48,7 +48,7 @@ jobs:
     - name: Get version
       id: version
       run: |
-        ehco "version=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | cut -d'"' -f4)" >> GITHUB_OUTPUT
+        echo "version=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | cut -d'"' -f4)" >> GITHUB_OUTPUT
 
 
     - name: 获取最新仓库文件
