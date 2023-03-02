@@ -48,7 +48,7 @@ jobs:
     - name: Get version
       id: version
       run: |
-        LATEST_TAG=$(git ls-remote --tags https://github.com/pengzhile/pandora.git | cut -d/ -f3- | sort -V | tail -n1)
+        LATEST_TAG=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
     - name: 获取最新仓库文件
