@@ -56,4 +56,4 @@ jobs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         branch: main
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PAT }}
