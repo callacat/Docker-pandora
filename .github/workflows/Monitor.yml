@@ -2,7 +2,7 @@ name: Monitor Other Repository
 
 on:
   schedule:
-    - cron: '50 2 * * *'   # 每5小时执行一次
+    - cron: '0 3 * * *'   # 每5小时执行一次
 
 jobs:
   monitor:
@@ -17,7 +17,8 @@ jobs:
         if [[ $latest_sha != ${{ secrets.last_sha }} ]]; then
           echo "New commit detected in other repository!"
           # Update the last SHA with the latest SHA
-          echo "name=last_sha::${latest_sha}"  >> GITHUB_OUTPUT
+          echo "${latest_sha}" >> $GITHUB_ENV
+          echo "::add-mask::$latest_sha"
           # Trigger the workflow
           curl -X POST -H "Accept: application/vnd.github.v3+json" \
                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
