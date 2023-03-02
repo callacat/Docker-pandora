@@ -2,7 +2,7 @@ name: Monitor Other Repository
 
 on:
   schedule:
-    - cron: '46 */5 * * *'   # 每5小时执行一次
+    - cron: '50 2 * * *'   # 每5小时执行一次
 
 jobs:
   monitor:

@@ -39,10 +39,12 @@ jobs:
       id: date
       run: |
         TZ=Asia/Shanghai
-        echo "name=date::$(date +'%m-%d')" >> GITHUB_OUTPUT
+        echo "date=$(date +'%m-%d')" >> GITHUB_OUTPUT
 
     - name: 获取最新仓库文件
-      run: git clone https://github.com/pengzhile/pandora.git
+      run: |
+        echo ${{ steps.date.outputs.date }}
+        git clone https://github.com/pengzhile/pandora.git
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -53,7 +55,7 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/pandora
-          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.date.outputs.name }}
+          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.date.outputs.date }}
 
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v2
