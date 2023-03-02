@@ -50,7 +50,6 @@ jobs:
       run: |
         LATEST_TAG=$(git ls-remote --tags https://github.com/pengzhile/pandora.git | cut -d/ -f3- | sort -V | tail -n1)
         echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
-        echo $latest_tag
 
     - name: 获取最新仓库文件
       run: |
