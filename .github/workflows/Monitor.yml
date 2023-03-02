@@ -1,0 +1,28 @@
+name: Monitor Other Repository
+
+on:
+  schedule:
+    - cron: '35 */5 * * *'   # 每5小时执行一次
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if other repository has new commits
+      run: |
+        latest_sha=$(curl -H "Authorization: token ${{ secrets.ACCESS_TOKEN }}" \
+                      https://api.github.com/repos/pengzhile/pandora/commits/master \
+                      | grep '"sha"' | head -n 1 | cut -d '"' -f 4)
+
+        if [[ $latest_sha != ${{ secrets.last_sha }} ]]; then
+          echo "New commit detected in other repository!"
+          # Update the last SHA with the latest SHA
+          echo "name=last_sha::${latest_sha}"  >> GITHUB_OUTPUT
+          # Trigger the workflow
+          curl -X POST -H "Accept: application/vnd.github.v3+json" \
+               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/dswang2233/Docker-pandora/dispatches \
+               -d '{"event_type": "docker-build"}'
+        else
+          echo "No new commit in other repository."
+        fi
