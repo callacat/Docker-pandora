@@ -8,9 +8,13 @@ on:
     - cron: '12 */5 * * *'   # 每5小时执行一次
 
 jobs:
+
   monitor:
+
     runs-on: ubuntu-latest
+
     steps:
+    
     - name: Check if other repository has new commits
       run: |
         # Read the last SHA from the file
