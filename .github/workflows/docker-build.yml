@@ -48,12 +48,13 @@ jobs:
     - name: Get version
       id: version
       run: |
-        echo "version=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | cut -d'"' -f4)" >> GITHUB_OUTPUT
-        echo $version
+        apt-get install jq -y
+        echo "latest_tag=$(curl --silent "https://api.github.com/repos/pengzhile/pandora/releases/latest" | jq -r .tag_name)" >> GITHUB_OUTPUT
+        echo $latest_tag
 
     - name: 获取最新仓库文件
       run: |
-        echo ${{ steps.version.outputs.version }}
+        echo ${{ steps.version.outputs.latest_tag }}
         git clone https://github.com/pengzhile/pandora.git
 
     - name: Build and push
@@ -65,4 +66,4 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/pandora
-          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.version.outputs.version }}
+          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.version.outputs.latest_tag }}
