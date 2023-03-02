@@ -31,7 +31,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         event-type: auto-remove
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT }}
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -47,7 +47,7 @@ jobs:
 
     - name: 获取最新仓库文件
       run: |
-        echo ${{ steps.date.outputs.date }}
+        echo ${{ steps.date.outputs.time }}
         git clone https://github.com/pengzhile/pandora.git
 
     - name: Build and push
