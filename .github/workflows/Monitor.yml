@@ -24,7 +24,7 @@ jobs:
           echo "::add-mask::$latest_sha"
           # Trigger the workflow
           curl -X POST -H "Accept: application/vnd.github.v3+json" \
-               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Authorization: Bearer ${{ secrets.PAT }}" \
                https://api.github.com/repos/dswang2233/Docker-pandora/dispatches \
                -d '{"event_type": "docker-build"}'
         else
