@@ -49,6 +49,7 @@ jobs:
       id: version
       run: |
         echo "version=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | cut -d'"' -f4)" >> GITHUB_OUTPUT
+        echo $version
 
     - name: 获取最新仓库文件
       run: |
