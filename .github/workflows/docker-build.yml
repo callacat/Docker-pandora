@@ -49,7 +49,7 @@ jobs:
       id: version
       run: |
         LATEST_TAG=$(curl -sSL "https://github.com/pengzhile/pandora/releases/latest" | cut -d'/' -f8)
-        echo "latest_tag=$LATEST_TAG" >> $GITHUB_ENV
+        echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
         echo $latest_tag
 
     - name: 获取最新仓库文件
