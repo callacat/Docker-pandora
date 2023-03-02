@@ -21,7 +21,7 @@ jobs:
           echo "New commit detected in other repository!"
           # Update the last SHA with the latest SHA
           echo "${latest_sha}"
-          # echo "::add-mask::$latest_sha"
+          echo "::set-secret name=last_sha::$latest_sha"
           # Trigger the workflow
           curl -L \
           -X POST \
