@@ -14,9 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+
     - name: Check if other repository has new commits
       run: |
+        ls
         # Read the last SHA from the file
         last_sha=$(cat last_sha.txt)
         latest_sha=$(curl -H "Authorization: token ${{ secrets.PAT }}" \
