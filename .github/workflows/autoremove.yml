@@ -1,11 +1,11 @@
 name: remove
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  repository_dispatch:
-    types: [auto-remove]
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '12 6 * * 1'
 
 jobs:
   del_runs:
