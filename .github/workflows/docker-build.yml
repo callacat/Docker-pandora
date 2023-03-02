@@ -55,8 +55,7 @@ jobs:
           ${{ secrets.DOCKER_USERNAME }}/pandora
           ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.date.outputs.name }}
 
-    - name: Trigger another workflow
-      uses: peter-evans/workflow-dispatch@v1
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v2
       with:
-        workflow: 'autoremove.yml' # 要触发的 workflow 名称
-        token: ${{ secrets.GITHUB_TOKEN }} # 用于触发工作流程的 Github Token
+        event-type: auto-remove
