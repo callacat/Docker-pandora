@@ -39,12 +39,6 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # - name: Get Date
-    #   id: date
-    #   run: |
-    #     TZ=Asia/Shanghai
-    #     echo "time=$(date +'%m-%d')" >> $GITHUB_OUTPUT
-
     - name: Get version
       id: version
       run: |
