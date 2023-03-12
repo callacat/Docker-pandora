@@ -6,7 +6,9 @@ on:
       - '.github/workflows/Monitor.yml'
   schedule:
     - cron: '12 */6 * * *'   # 每6小时执行一次
-
+  watch:
+    types: [started]
+    
 jobs:
   monitor:
     runs-on: ubuntu-latest
