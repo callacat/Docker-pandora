@@ -1,15 +1,17 @@
 FROM python:3.10-alpine
 
-ENV LANG C.UTF-8
-ENV TZ 'Asia/Shanghai'
+ENV LANG C.UTF-8 \
+    TZ 'Asia/Shanghai' 
 
-WORKDIR /app
+# WORKDIR /app
 
-ADD pandora /app
+ADD pandora /tmp
 
-RUN apk update && apk add --no-cache tzdata \
+RUN cd /tmp && apk update && apk add --no-cache tzdata \
     && pip install --upgrade pip && pip install . \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
-    && echo $TZ > /etc/timezone
+    && echo $TZ > /etc/timezone \
+    && apk del tzdata \
+    && rm -rf /tmp/* /var/cache/apk/* 
 
 ENTRYPOINT ["pandora"]
