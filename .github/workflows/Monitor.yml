@@ -1,13 +1,12 @@
 name: Monitor Other Repository
 
 on:
-  push:
-    paths:
-      - '.github/workflows/Monitor.yml'
-  schedule:
-    - cron: '12 */6 * * *'   # 每6小时执行一次
-  watch:
-    types: [started]
+  # push:
+  #   paths:
+  #     - '.github/workflows/Monitor.yml'
+  # schedule:
+  #   - cron: '12 */6 * * *'   # 每6小时执行一次
+  workflow_dispatch:
     
 jobs:
   monitor:
