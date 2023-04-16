@@ -7,8 +7,8 @@ ENV LANG C.UTF-8 \
 
 ADD pandora /tmp
 
-RUN cd /tmp && apk update && apk add --no-cache tzdata build-base \
-    && pip install --upgrade pip && pip install '.[api]' \
+RUN cd /tmp && apk update && apk add --no-cache tzdata \
+    && pip install --upgrade pip && pip install 'pandora-chatgpt[api]' \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && apk del tzdata \
