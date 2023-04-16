@@ -7,7 +7,7 @@ ENV LANG C.UTF-8 \
 
 ADD pandora /tmp
 
-RUN cd /tmp && apk update && apk add --no-cache tzdata \
+RUN cd /tmp && apk update && apk add --no-cache tzdata build-base \
     && pip install --upgrade pip && pip install '.[api]' \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
