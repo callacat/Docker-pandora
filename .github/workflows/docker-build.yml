@@ -42,11 +42,11 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # - name: Get version
-    #   id: version
-    #   run: |
-    #     LATEST_TAG=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-    #     echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+    - name: Get version
+      id: version
+      run: |
+        LATEST_TAG=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
     # - name: 获取最新仓库文件
     #   run: |
