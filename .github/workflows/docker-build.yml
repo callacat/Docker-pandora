@@ -51,13 +51,22 @@ jobs:
         echo ${{ steps.version.outputs.latest_tag }}
         git clone https://github.com/pengzhile/pandora.git
 
+    # - name: Build and push
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #     context: .
+    #     file: ./Dockerfile
+    #     platforms: linux/amd64
+    #     push: true
+    #     tags: |
+    #       ${{ secrets.DOCKER_USERNAME }}/pandora:amd64
+
     - name: Build and push
       uses: docker/build-push-action@v4
       with:
         context: .
-        file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64
+        file: ./Dockerfile_arm
+        platforms: linux/arm64
         push: true
         tags: |
-          ${{ secrets.DOCKER_USERNAME }}/pandora
-          ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.version.outputs.latest_tag }}
+          ${{ secrets.DOCKER_USERNAME }}/pandora:arm64         
