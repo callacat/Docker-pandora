@@ -1,4 +1,4 @@
-FROM python:3.10-alpine
+FROM python:3.10-slim
 
 ENV LANG C.UTF-8 \
     TZ 'Asia/Shanghai' 
@@ -7,10 +7,10 @@ WORKDIR /app
 
 ADD pandora /app
 
-RUN apk update && apk add --no-cache tzdata \
+RUN apt-get update && apt-get install -y --no-install-recommends tzdata \
     && pip install --upgrade pip && pip install '.[api]' \
     && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
-    && apk del tzdata
+    && apt-get remove -y tzdata && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT ["pandora"]
