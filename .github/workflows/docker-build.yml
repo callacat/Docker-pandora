@@ -48,30 +48,43 @@ jobs:
         LATEST_TAG=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
-    # - name: 获取最新仓库文件
-    #   run: |
-    #     echo ${{ steps.version.outputs.latest_tag }}
-    #     git clone https://github.com/pengzhile/pandora.git
+    - name: 获取最新仓库文件
+      run: |
+        echo ${{ steps.version.outputs.latest_tag }}
+        git clone https://github.com/pengzhile/pandora.git
 
-    # - name: Build and push
-    #   uses: docker/build-push-action@v4
-    #   with:
-    #     context: .
-    #     file: ./Dockerfile
-    #     platforms: linux/amd64
-    #     push: true
-    #     tags: |
-    #       ${{ secrets.DOCKER_USERNAME }}/pandora:amd64
+    - name: 创建版本号清单
+      run: |
+        docker manifest create ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
+          ${{ secrets.DOCKER_USERNAME }}/pandora:amd64 \
+          ${{ secrets.DOCKER_USERNAME }}/pandora:arm64
 
-    # - name: Build and push
-    #   uses: docker/build-push-action@v4
-    #   with:
-    #     context: .
-    #     file: ./Dockerfile_arm
-    #     platforms: linux/arm64
-    #     push: true
-    #     tags: |
-    #       ${{ secrets.DOCKER_USERNAME }}/pandora:arm64
+    - name: 设置版本号列表
+      run: |
+        docker manifest annotate ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
+          --arch amd64 --os linux ${{ secrets.DOCKER_USERNAME }}/pandora:amd64
+        docker manifest annotate ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
+          --arch arm64 --os linux ${{ secrets.DOCKER_USERNAME }}/pandora:arm64
+
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/pandora:amd64
+
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./Dockerfile_arm
+        platforms: linux/arm64
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/pandora:arm64
 
     # - name: 创建版本号列表
     #   run: |
@@ -92,18 +105,5 @@ jobs:
     # - name: 推送版本号列表
     #   run: docker manifest push ${{ secrets.DOCKER_USERNAME }}/pandora:${{ steps.version.outputs.latest_tag }}
 
-    - name: 创建 latest 列表
-      run: |
-        docker manifest create ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
-          ${{ secrets.DOCKER_USERNAME }}/pandora:amd64 \
-          ${{ secrets.DOCKER_USERNAME }}/pandora:arm64
-
-    - name: 设置latest列表
-      run: |
-        docker manifest annotate ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
-          ${{ secrets.DOCKER_USERNAME }}/pandora:amd64 --os linux --arch amd64
-        docker manifest annotate ${{ secrets.DOCKER_USERNAME }}/pandora:latest \
-          ${{ secrets.DOCKER_USERNAME }}/pandora:arm64 --os linux --arch arm64
-
-    - name: 推送latest列表
-      run: docker manifest push ${{ secrets.DOCKER_USERNAME }}/pandora:latest
+    - name: 推送清单
+      run: docker manifest push --purge ${{ secrets.DOCKER_USERNAME }}/pandora:latest
