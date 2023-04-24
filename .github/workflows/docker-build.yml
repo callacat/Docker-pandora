@@ -46,7 +46,7 @@ jobs:
       id: version
       run: |
         LATEST_TAG=$(curl -s https://api.github.com/repos/pengzhile/pandora/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-        echo "latest_tag=$(cat last_version.txt)" >> $GITHUB_OUTPUT
+        echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
     - name: 获取最新仓库文件
       run: |
